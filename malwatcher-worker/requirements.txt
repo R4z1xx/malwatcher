@@ -1,0 +1,5 @@
+apiosintDS
+requests
+aiohttp
+OTXv2
+toml
