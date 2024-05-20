@@ -1,0 +1,32 @@
+[virustotal-api]
+    # Your API key for VirusTotal
+    vt-key = "" # Leave empty not to use it
+
+    # Use VirusTotal Enterprise
+    # /!\ Do not use this option if you don't have a VT Enterprise account, it will use all your API credits
+    vt-enterprise = false # NOT IMPLEMENTED YET
+
+[otx-api]
+    # Your API key for AlienVault OTX
+    otx-key = "" # Work even without your API key (Don't know why ¯\_(ツ)_/¯ )
+
+[abuseipdb-api]
+    # Your API key for AbuseIPDB
+    abuseipdb-key = "" # Leave empty not to use it
+
+[logging]
+    # Default: info => "debug" for debugging logs
+    log-level = "debug"
+
+    # Log file path
+    log-file = "/worker/logs/malwatcher.log"
+
+[worker]
+    # Protocol of the worker
+    worker-protocol = "http"
+
+    # Name or IP of the worker
+    worker-name = "worker"
+
+    # Port of the worker
+    worker-port = 8080
