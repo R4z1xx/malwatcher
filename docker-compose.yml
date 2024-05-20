@@ -1,0 +1,28 @@
+name: malwatcher
+services:
+  worker:
+    container_name: malwatcher-worker
+    build:
+      context: ./malwatcher-worker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./malwatcher-worker/logs:/worker/logs
+      - ./malwatcher-app/config:/worker/config
+    networks:
+      - malwatcher-network
+  app:
+    container_name: malwatcher-app
+    build:
+      context: ./malwatcher-app/
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./malwatcher-app/config:/app/config
+    networks:
+      - malwatcher-network
+    depends_on:
+      - malwatcher-worker
+
+networks:
+  malwatcher-network:
