@@ -20,7 +20,16 @@ class AlienVault:
             'md5': IndicatorTypes.FILE_HASH_MD5,
             'sha1': IndicatorTypes.FILE_HASH_SHA1,
             'sha256': IndicatorTypes.FILE_HASH_SHA256
-        }   
+        }
+        self.typeOTX = {
+            'ipv4': 'ip',
+            'ipv6': 'ip',
+            'domain': 'domain',
+            'url': 'url',
+            'md5': 'file',
+            'sha1': 'file',
+            'sha256': 'file'
+        }
 
     def _make_request(self, type, ioc):
         """Make request to AlienVault OTX API.
@@ -44,6 +53,6 @@ class AlienVault:
                     'pulses_count': response.get('pulse_info', {}).get('count', '0'),
                     'as_owner': response.get('asn', None),
                     'country': response.get('country_name', None),
-                    'otx_link': urljoin(self.report_url, str(PurePosixPath(type if type not in ['ipv4', 'ipv6'] else 'ip', quote_plus(ioc, safe=':'))))
+                    'otx_link': urljoin(self.report_url, str(PurePosixPath(self.typeOTX[type], quote_plus(ioc, safe=':'))))
                 }
         return {'status': False}
