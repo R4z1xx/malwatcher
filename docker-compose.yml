@@ -22,7 +22,7 @@ services:
     networks:
       - malwatcher-network
     depends_on:
-      - malwatcher-worker
+      - worker
 
 networks:
   malwatcher-network:
