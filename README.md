@@ -17,10 +17,27 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | *IPSum*              |                      |                      |                           |
 
 # Installation
+### Prerequisites
+- Docker - 19.03 or higher
+- Docker Compose - 1.27.0 or higher
+### Procedure
+1. Clone the Malwatcher repo.
+```bash
+git clone https://github.com/R4z1xx/malwatcher.git
+```
+2. Go to malwatcher directory.
+```bash
+cd malwatcher
+```
+3. Edit Malwatcher web interface port if necessary in the docker-compose file.
+4. Start Malwatcher docker stack
+```bash
+docker compose up -d
+``` 
 
 ## Demo
 Here is a preview of the Malwatcher web interface.<br>
-/!\ The copy of defanged IOC on the report page only work if the web app is on "https".
+/!\ The copy of defanged IOC on the report page only works if the web app is set to "https".
 
 ![Malwatcher Demo](/images/malwatcher-demo.gif)
 
