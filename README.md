@@ -23,3 +23,6 @@ Here is a preview of the Malwatcher web interface.<br>
 /!\ The copy of defanged IOC on the report page only work if the web app is on "https".
 
 ![Malwatcher Demo](/images/malwatcher-demo.gif)
+
+# License
+Malwatcher is released under GNU GPL-3.0. See [LICENSE](LICENSE)
