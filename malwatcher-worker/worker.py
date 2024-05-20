@@ -11,18 +11,28 @@ class Worker:
     Functions available :
         - check_ioc() : Check IOC in defined modules using threads
     """
-    def __init__(self, config, logger):
+    def __init__(self, logger):
         self.logger = logger
         self.defanger = defang.Defanger()
+        self._load_config()
+
+    def _load_config(self):
+        """Load configuration and initialize modules.
+        """
+        try:
+            self.config = toml.load("/worker/config/config.toml")
+        except Exception as e:
+            self.logger.error(f"Error while loading config: {e}")
+            sys.exit(1)
         self.abusech_bazaar = abusech.Bazaar()
         self.abusech_threatfox = abusech.ThreatFox()
         self.abusech_urlhaus = abusech.Urlhaus()
-        self.abuseipdb = abuseipdb.AbuseIPDB(config["abuseipdb-api"]["abuseipdb-key"])
-        self.alienvault = alienvault.AlienVault(config["otx-api"]["otx-key"])
+        self.abuseipdb = abuseipdb.AbuseIPDB(self.config["abuseipdb-api"]["abuseipdb-key"])
+        self.alienvault = alienvault.AlienVault(self.config["otx-api"]["otx-key"])
         self.binarydefense = binarydefense.BinaryDefense()
         self.digitalside = digitalside.DigitalSide()
         self.ipsum = ipsum.IPSum()
-        self.vt = virustotal.VirusTotal(config["virustotal-api"]["vt-key"], config["virustotal-api"]["vt-enterprise"])
+        self.vt = virustotal.VirusTotal(self.config["virustotal-api"]["vt-key"], self.config["virustotal-api"]["vt-enterprise"])
 
     def _define_ioc_type(self, ioc):
         """Define type of IOC.
@@ -79,6 +89,7 @@ class Worker:
         ioc = ioc.get("ioc")
         results = {}
         if ioc:
+            self._load_config()
             type = self._define_ioc_type(ioc)
             self.logger.info("IOC type defined.")
             match type:
@@ -165,7 +176,7 @@ class Worker:
             results["error"] = "No IOC provided."
         return web.json_response(results)
 
-def setup_logger():
+def setup_logger(config):
     """Setup logger.
     """
     try:
@@ -188,8 +199,8 @@ if __name__ == "__main__":
         with open("/worker/logs/malwatcher.log", "a") as file:
             file.write(f"[ERROR] Error while loading config: {e}\n")
         sys.exit(1)
-    logger = setup_logger()
-    worker = Worker(config, logger)
+    logger = setup_logger(config)
+    worker = Worker(logger)
     worker_api = web.Application()
     worker_api.router.add_post("/check", worker.check_ioc)
     web.run_app(worker_api)
