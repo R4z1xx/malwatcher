@@ -34,7 +34,10 @@ class AlienVault:
     def _make_request(self, type, ioc):
         """Make request to AlienVault OTX API.
         """
-        return self.otx.get_indicator_details_by_section(type, ioc, 'general')
+        try:
+            return self.otx.get_indicator_details_by_section(type, ioc, 'general')
+        except:
+            return None
 
     def check_ioc(self, ioc, type):
         """Check IOC in AlienVault OTX.
