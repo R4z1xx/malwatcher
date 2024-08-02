@@ -11,7 +11,7 @@ class IOCParser:
             {"find": r"^[a-fA-F0-9]{64}$", "type": "sha256"},
             {"find": r"^[a-fA-F0-9]{40}$", "type": "sha1"},
             {"find": r"^[a-fA-F0-9]{32}$", "type": "md5"},
-            {"find": r"^(?:https?://)?(?:[a-z0-9.-]+\.)?[a-z0-9.-]+(?::\d+)?(?:/[^\s]*)?$", "type": "url"},
+            {"find": r"^(?:https?://)(?:[a-z0-9-]+\.)[a-z0-9.-]+(?::\d+)?(?:/[^\s]*)?$", "type": "url"},
         ]
         self.ioc_patterns = [{"find": re.compile(i["find"], re.VERBOSE), "type": i["type"]} for i in self.patterns]
 
