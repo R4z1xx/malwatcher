@@ -35,7 +35,7 @@ cd malwatcher
 docker compose up -d
 ``` 
 
-## Demo
+# Demo
 Here is a preview of the Malwatcher web interface.<br>
 /!\ The copy of defanged IOC on the report page only works if the web app is set to "https".
 
