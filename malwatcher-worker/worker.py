@@ -32,22 +32,21 @@ class Worker:
         self.binarydefense = binarydefense.BinaryDefense()
         self.digitalside = digitalside.DigitalSide()
         self.ipsum = ipsum.IPSum()
+        self.parser = ioc_parser.IOCParser()
         self.vt = virustotal.VirusTotal(self.config["virustotal-api"]["vt-key"], self.config["virustotal-api"]["vt-enterprise"])
 
     def _define_ioc_type(self, ioc):
         """Define type of IOC.
         """
         if ioc:
-            parser = ioc_parser.IOCParser()
-            return parser.parse(ioc)
+            return self.parser.parse(ioc)
         return None
 
     def _vt_url_hash(self, ioc):
         """Calculate sha256 hash of URL for VT.
         """
         if ioc:
-            parser = ioc_parser.IOCParser()
-            return parser.url_hash(ioc)
+            return self.parser.url_hash(ioc)
         return None
 
     def _execute_check(self, func, *args):
@@ -91,7 +90,7 @@ class Worker:
         if ioc:
             self._load_config()
             type = self._define_ioc_type(ioc)
-            self.logger.info("IOC type defined.")
+            self.logger.info(f"IOC type defined : {type}")
             match type:
                 case "ipv4":
                     check_modules = [
@@ -188,7 +187,7 @@ def setup_logger(config):
         logger.addHandler(handler)
     except Exception as e:
         with open(config["logging"]["log-file"], "a") as file:
-            file.write(f"[ERROR] Error while setting up logging: {e}\n")
+            file.write(f"[CRITICAL] Error while setting up logging: {e}\n")
         sys.exit(1)
     return logger
 
@@ -197,7 +196,7 @@ if __name__ == "__main__":
         config = toml.load("/worker/config/config.toml")
     except Exception as e:
         with open("/worker/logs/malwatcher.log", "a") as file:
-            file.write(f"[ERROR] Error while loading config: {e}\n")
+            file.write(f"[CRITICAL] Error while loading config: {e}\n")
         sys.exit(1)
     logger = setup_logger(config)
     worker = Worker(logger)
