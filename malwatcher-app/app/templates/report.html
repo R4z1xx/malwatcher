@@ -76,7 +76,7 @@
                         </tbody>
                     </table>
                 </div>
-                {% elif module not in ["ioc", "type"] %}
+                {% elif module not in ["ioc", "type", "error"] %}
                 <div class="overflow-x-auto pb-4">
                     <table class="table tab-border border-separate border-spacing-y-2 w-full text-woodsmoke-950 dark:text-gray-100">
                         <thead>
@@ -93,6 +93,22 @@
                         </tbody>
                     </table>
                 </div>
+                {% elif module == "error" %}
+                <div class="overflow-x-auto pb-4">
+                    <table class="table tab-border border-separate border-spacing-y-2 w-full text-woodsmoke-950 dark:text-gray-100">
+                        <thead>
+                            <tr>
+                                <th class="font-bold text-[1.5rem] text-woodsmoke-950 dark:text-gray-100 capitalize bg-gray-100 dark:bg-woodsmoke-950">{{ module.capitalize() }}</th>
+                                <th class="bg-gray-100 dark:bg-woodsmoke-950"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr-class">
+                                <th class="td-class border border-woodsmoke-800 text-left sm:w-20 w-full bg-gray-100 dark:bg-woodsmoke-950">Error</th>
+                                <td class="td-class border border-woodsmoke-800 text-left bg-gray-100 dark:bg-woodsmoke-950">{{ result }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 {% endif %}
             {% endfor %}
         </div>
