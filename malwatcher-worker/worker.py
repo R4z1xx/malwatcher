@@ -11,19 +11,15 @@ class Worker:
     Functions available :
         - check_ioc() : Check IOC in defined modules using threads
     """
-    def __init__(self, logger):
+    def __init__(self, logger, config):
         self.logger = logger
+        self.config = config
         self.defanger = defang.Defanger()
-        self._load_config()
+        self._load_modules()
 
-    def _load_config(self):
-        """Load configuration and initialize modules.
+    def _load_modules(self):
+        """Load and initialize modules.
         """
-        try:
-            self.config = toml.load("/worker/config/config.toml")
-        except Exception as e:
-            self.logger.error(f"Error while loading config: {e}")
-            sys.exit(1)
         self.abusech_bazaar = abusech.Bazaar()
         self.abusech_threatfox = abusech.ThreatFox()
         self.abusech_urlhaus = abusech.Urlhaus()
@@ -88,7 +84,6 @@ class Worker:
         ioc = ioc.get("ioc")
         results = {}
         if ioc:
-            self._load_config()
             type = self._define_ioc_type(ioc)
             self.logger.info(f"IOC type defined : {type}")
             match type:
@@ -200,7 +195,7 @@ if __name__ == "__main__":
             file.write(f"[CRITICAL] Error while loading config: {e}\n")
         sys.exit(1)
     logger = setup_logger(config)
-    worker = Worker(logger)
+    worker = Worker(logger, config)
     worker_api = web.Application()
     worker_api.router.add_post("/check", worker.check_ioc)
     web.run_app(worker_api)
