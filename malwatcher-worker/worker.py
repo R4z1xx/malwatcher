@@ -167,6 +167,7 @@ class Worker:
                     if result is not None:
                         results[module] = result
             self.logger.info("Threads finished.")
+            results = dict(sorted(results.items(), key=lambda x: x[1].get("status", False), reverse=True))
             ioc_defang = self.defanger.defang(ioc)
             results["ioc"] = ioc_defang
             results["type"] = type.upper()
