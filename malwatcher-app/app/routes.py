@@ -13,6 +13,7 @@ def index():
 @main_blueprint.route('/report', methods=['POST'])
 def check_ioc():
     ioc = request.form.get('ioc')
+    ioc = ioc.strip()
     if not ioc:
         return jsonify({"error": "No IOC provided"}), 400
     
