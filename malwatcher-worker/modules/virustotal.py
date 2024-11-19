@@ -10,11 +10,10 @@ class VirusTotal:
         - check_url() : Check URL in VT
         - check_file() : Check hash in VT
     """
-    def __init__(self, API_KEY, ENTERPRISE):
+    def __init__(self, API_KEY):
         self.report_url = "https://www.virustotal.com/gui/"
         self.api_base_url = "https://www.virustotal.com/api/v3/"
         self.api_key = API_KEY
-        self.enterprise = ENTERPRISE
 
     def _make_request(self, endpoint):
         """Make request to VT API.
