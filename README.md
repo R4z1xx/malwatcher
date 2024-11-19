@@ -12,9 +12,18 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | DigitalSide          | DigitalSide          | DigitalSide          | DigitalSide               |
 | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)        |
 | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox)      |
-| *AbuseIPDB*          |                      |                      | *Abuse.ch (MalwareBazaar)*|
+|                      |                      |                      | *Abuse.ch (MalwareBazaar)*|
+| InQuest IOCDB*       | InQuest IOCDB*       | InQuest IOCDB*       | InQuest IOCDB*            |
+| InQuest RepDB*       | InQuest RepDB*       | InQuest RepDB*       | InQuest RepDB*            |
+| InQuest DFI IOC*     | InQuest DFI IOC*     | InQuest DFI IOC*     | InQuest DFI IOC*          |
+|                      |                      |                      | *InQuest DFI Hash*        |
+| Tria.ge*             | Tria.ge*             |                      | Tria.ge*                  |
+|                      |                      | PolySwarm*           | PolySwarm*                |
+| *AbuseIPDB*          |                      |                      |                           |
 | *BinaryDefense*      |                      |                      |                           |
 | *IPSum*              |                      |                      |                           |
+
+*\*new API sources*
 
 # Installation
 ### Prerequisites
