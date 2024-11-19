@@ -1,4 +1,4 @@
-from modules import abusech, abuseipdb, alienvault, binarydefense, digitalside, ipsum, virustotal
+from modules import abusech, abuseipdb, alienvault, binarydefense, digitalside, ipsum, virustotal, polyswarm, triage, inquest
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from tools import defang, ioc_parser
 from aiohttp import web
@@ -15,21 +15,24 @@ class Worker:
         self.logger = logger
         self.config = config
         self.defanger = defang.Defanger()
+        self.parser = ioc_parser.IOCParser()
         self._load_modules()
 
     def _load_modules(self):
         """Load and initialize modules.
         """
+        self.vt = virustotal.VirusTotal(self.config["modules"]["virustotal-api"]["vt-key"])
+        self.abuseipdb = abuseipdb.AbuseIPDB(self.config["modules"]["abuseipdb-api"]["abuseipdb-key"])
+        self.alienvault = alienvault.AlienVault(self.config["modules"]["otx-api"]["otx-key"])
+        self.polyswarm = polyswarm.PolySwarm(self.config["modules"]["polyswarm-api"]["polyswarm-key"])
+        self.triage = triage.Triage(self.config["modules"]["triage-api"]["triage-key"])
+        self.inquest = inquest.InQuest(self.config["modules"]["inquest-api"]["inquest-key"])
         self.abusech_bazaar = abusech.Bazaar()
         self.abusech_threatfox = abusech.ThreatFox()
         self.abusech_urlhaus = abusech.Urlhaus()
-        self.abuseipdb = abuseipdb.AbuseIPDB(self.config["abuseipdb-api"]["abuseipdb-key"])
-        self.alienvault = alienvault.AlienVault(self.config["otx-api"]["otx-key"])
         self.binarydefense = binarydefense.BinaryDefense()
         self.digitalside = digitalside.DigitalSide()
         self.ipsum = ipsum.IPSum()
-        self.parser = ioc_parser.IOCParser()
-        self.vt = virustotal.VirusTotal(self.config["virustotal-api"]["vt-key"], self.config["virustotal-api"]["vt-enterprise"])
 
     def _define_ioc_type(self, ioc):
         """Define type of IOC.
@@ -96,7 +99,11 @@ class Worker:
                         ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
                         ["abuseipdb", self.abuseipdb.check_ip, ioc],
                         ["binarydefense", self.binarydefense.check_ip, ioc],
-                        ["ipsum", self.ipsum.check_ip, ioc]
+                        ["ipsum", self.ipsum.check_ip, ioc],
+                        ["triage", self.triage.search_ioc, ioc, type],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                     ]
                 case "ipv6":
                     check_modules = [
@@ -106,7 +113,10 @@ class Worker:
                         ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
                         ["abuseipdb", self.abuseipdb.check_ip, ioc],
                         ["binarydefense", self.binarydefense.check_ip, ioc],
-                        ["ipsum", self.ipsum.check_ip, ioc]
+                        ["ipsum", self.ipsum.check_ip, ioc],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                     ]
                 case "domain":
                     check_modules = [
@@ -114,7 +124,11 @@ class Worker:
                         ["alienvault", self.alienvault.check_ioc, ioc, type],
                         ["digitalside", self.digitalside.check_ioc, ioc, type],
                         ["urlhaus", self.abusech_urlhaus.check_domain_ip, ioc],
-                        ["threatfox", self.abusech_threatfox.check_ioc, ioc, type]
+                        ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
+                        ["triage", self.triage.search_ioc, ioc, type],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                     ]
                 case "url":
                     check_modules = [
@@ -122,7 +136,11 @@ class Worker:
                         ["alienvault", self.alienvault.check_ioc, ioc, type],
                         ["digitalside", self.digitalside.check_ioc, ioc, type],
                         ["urlhaus", self.abusech_urlhaus.check_url, ioc],
-                        ["threatfox", self.abusech_threatfox.check_ioc, ioc, type]
+                        ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
+                        ["polyswarm", self.polyswarm.search_url, ioc],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                     ]
                 case "md5":
                     check_modules = [
@@ -131,14 +149,26 @@ class Worker:
                         ["digitalside", self.digitalside.check_ioc, ioc, type],
                         ["urlhaus", self.abusech_urlhaus.check_hash, ioc, type],
                         ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
-                        ["bazaar", self.abusech_bazaar.check_hash, ioc]
+                        ["bazaar", self.abusech_bazaar.check_hash, ioc],
+                        ["triage", self.triage.search_ioc, ioc, type],
+                        ["polyswarm", self.polyswarm.search_hash, ioc, type],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
+                        ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case "sha1":
                     check_modules = [
                         ["virustotal", self.vt.check_file, ioc],
                         ["alienvault", self.alienvault.check_ioc, ioc, type],
                         ["digitalside", self.digitalside.check_ioc, ioc, type],
-                        ["bazaar", self.abusech_bazaar.check_hash, ioc]
+                        ["bazaar", self.abusech_bazaar.check_hash, ioc],
+                        ["triage", self.triage.search_ioc, ioc, type],
+                        ["polyswarm", self.polyswarm.search_hash, ioc, type],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
+                        ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case "sha256":
                     check_modules = [
@@ -147,7 +177,13 @@ class Worker:
                         ["digitalside", self.digitalside.check_ioc, ioc, type],
                         ["urlhaus", self.abusech_urlhaus.check_hash, ioc, type],
                         ["threatfox", self.abusech_threatfox.check_ioc, ioc, type],
-                        ["bazaar", self.abusech_bazaar.check_hash, ioc]
+                        ["bazaar", self.abusech_bazaar.check_hash, ioc],
+                        ["triage", self.triage.search_ioc, ioc, type],
+                        ["polyswarm", self.polyswarm.search_hash, ioc, type],
+                        ["inquest-iocdb", self.inquest.check_iocdb, ioc],
+                        ["inquest-repdb", self.inquest.check_repdb, ioc],
+                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
+                        ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case _:
                     self.logger.error(f'IOC type "{type}" not supported.')
