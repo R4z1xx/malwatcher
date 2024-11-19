@@ -3,22 +3,22 @@ services:
   worker:
     container_name: malwatcher-worker
     build:
-      context: ./malwatcher-worker/
+      context: ./worker/
       dockerfile: Dockerfile
     volumes:
-      - ./malwatcher-worker/logs:/worker/logs
-      - ./malwatcher-app/config:/worker/config
+      - ./worker/logs:/worker/logs
+      - ./config:/worker/config
     networks:
       - malwatcher-network
-  app:
-    container_name: malwatcher-app
+  frontend:
+    container_name: malwatcher-frontend
     build:
-      context: ./malwatcher-app/
+      context: ./frontend/
       dockerfile: Dockerfile
     ports:
       - 5000:5000
     volumes:
-      - ./malwatcher-app/config:/app/config
+      - ./config:/app/config
     networks:
       - malwatcher-network
     depends_on:
