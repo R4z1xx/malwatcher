@@ -43,20 +43,7 @@
                 <h1 class="font-bold text-[1.5rem] text-woodsmoke-950 dark:text-gray-100 mb-2">VirusTotal API</h1>
                 <div class="mb-2 w-full">
                     <label class="input input-bordered flex items-center gap-2 dark:bg-woodsmoke-900">
-                        <input name="vt-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="VT API Key" value="{{ config['virustotal-api']['vt-key'] if config['virustotal-api']['vt-key'] != '' else '' }}"/>
-                    </label>
-                </div>
-                <div class="inline-flex items-center w-full gap-2 pl-2">
-                    <label class="relative flex items-center rounded-full cursor-not-allowed" for="check">
-                      <input type="checkbox" name="vt-enterprise"
-                        class="before:content[''] peer relative h-5 w-5 cursor-not-allowed appearance-none rounded-md border border-woodsmoke-900 dark:border-gray-100 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-woodsmoke-950 before:opacity-0 before:transition-opacity checked:border-woodsmoke-900 checked:bg-woodsmoke-900 checked:before:bg-woodsmoke-900"
-                        id="check" {% if config["virustotal-api"]["vt-enterprise"] == True %}checked{% endif %} disabled/>
-                        <span class="absolute text-gray-100 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 fill-gray-100" viewBox="0 0 20 20" stroke-width="1"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        </span>
-                    </label>
-                    <label class="mt-px text-woodsmoke-950 dark:text-gray-100 cursor-not-allowed select-none" for="check">
-                        VT Enterprise
+                        <input name="vt-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="VT API Key" value="{{ config['modules']['virustotal-api']['vt-key'] if config['modules']['virustotal-api']['vt-key'] != '' else '' }}"/>
                     </label>
                 </div>
             </div>
@@ -64,7 +51,7 @@
                 <h1 class="font-bold text-[1.5rem] text-woodsmoke-950 dark:text-gray-100 mb-2">AlienVault OTX API</h1>
                 <div class="mb-2 w-full">
                     <label class="input input-bordered flex items-center gap-2 dark:bg-woodsmoke-900">
-                        <input name="otx-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="OTX API Key" value="{{ config['otx-api']['otx-key'] if config['otx-api']['otx-key'] != '' else '' }}"/>
+                        <input name="otx-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="OTX API Key" value="{{ config['modules']['otx-api']['otx-key'] if config['modules']['otx-api']['otx-key'] != '' else '' }}"/>
                     </label>
                 </div>
             </div>
@@ -72,7 +59,7 @@
                 <h1 class="font-bold text-[1.5rem] text-woodsmoke-950 dark:text-gray-100 mb-2">AbuseIPDB API</h1>
                 <div class="mb-2 w-full">
                     <label class="input input-bordered flex items-center gap-2 dark:bg-woodsmoke-900">
-                        <input name="abuseipdb-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="AbuseIPDB API Key" value="{{ config['abuseipdb-api']['abuseipdb-key'] if config['abuseipdb-api']['abuseipdb-key'] != '' else '' }}"/>
+                        <input name="abuseipdb-key" type="text" class="appearance-none w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-woodsmoke-900 leading-tight focus:outline-none focus:shadow-outline" autocomplete="off" placeholder="AbuseIPDB API Key" value="{{ config['modules']['abuseipdb-api']['abuseipdb-key'] if config['modules']['abuseipdb-api']['abuseipdb-key'] != '' else '' }}"/>
                     </label>
                 </div>
             </div>

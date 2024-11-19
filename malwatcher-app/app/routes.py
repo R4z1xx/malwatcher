@@ -29,6 +29,8 @@ def check_ioc():
 def settings():
     with open('/app/config/config.toml', 'r') as fp:
         config = load(fp)
+    if config["settings"]["display"] == False:
+        return render_template('index.html')
     return render_template('settings.html', config=config)
 
 @main_blueprint.route('/update_settings', methods=['POST'])
@@ -41,10 +43,10 @@ def update_settings():
 
     with open('/app/config/config.toml', 'r') as fp:
         config = load(fp)
-    config['virustotal-api']['vt-key'] = vt_key
-    config['virustotal-api']['vt-enterprise'] = vt_enter
-    config['otx-api']['otx-key'] = otx_key
-    config['abuseipdb-api']['abuseipdb-key'] = abuse_key
+    config["modules"]['virustotal-api']['vt-key'] = vt_key
+    config["modules"]['virustotal-api']['vt-enterprise'] = vt_enter
+    config["modules"]['otx-api']['otx-key'] = otx_key
+    config["modules"]['abuseipdb-api']['abuseipdb-key'] = abuse_key
     config['logging']['log-level'] = log_level
     config = dumps(config)
     with open('/app/config/config.toml', 'w') as f:
