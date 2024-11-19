@@ -1,5 +1,6 @@
 name: Deploy Malwatcher images to ghcr.io
 
+on: workflow_dispatch
 # on:
 #   push:
 #     branches:
