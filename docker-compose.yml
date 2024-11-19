@@ -2,9 +2,10 @@ name: malwatcher
 services:
   worker:
     container_name: malwatcher-worker
-    build:
-      context: ./worker/
-      dockerfile: Dockerfile
+    image: ghcr.io/r4z1xx/malwatcher-api:latest
+    # build:
+    #   context: ./worker/
+    #   dockerfile: Dockerfile
     volumes:
       - ./worker/logs:/worker/logs
       - ./config:/worker/config
@@ -12,9 +13,10 @@ services:
       - malwatcher-network
   frontend:
     container_name: malwatcher-frontend
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
+    image: ghcr.io/r4z1xx/malwatcher-front:latest
+    # build:
+    #   context: ./frontend/
+    #   dockerfile: Dockerfile
     ports:
       - 5000:5000
     volumes:
