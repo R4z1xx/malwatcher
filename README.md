@@ -1,6 +1,11 @@
 
 [![Malwatcher](/images/malwatcher_black.png)](https://github.com/R4z1xx/malwatcher)
 
+[![GitHub Release](https://img.shields.io/github/v/release/R4z1xx/malwatcher)](https://github.com/R4z1xx/malwatcher/releases/latest)
+[![Static Badge](https://img.shields.io/badge/Docker-ghcr.io-blue)](https://github.com/R4z1xx?tab=packages&repo_name=malwatcher)
+[![GitHub License](https://img.shields.io/github/license/R4z1xx/malwatcher)](https://github.com/R4z1xx/malwatcher/blob/main/LICENSE)
+[![Deploy Malwatcher images to ghcr.io](https://github.com/R4z1xx/malwatcher/actions/workflows/gchr_push_latest.yml/badge.svg)](https://github.com/R4z1xx/malwatcher/actions/workflows/gchr_push_latest.yml)
+
 # What's this?
 Malwatcher is a self-hosted platform that simplifies the process of verifying IOCs by combining multiple online tools into one interface, eliminating the need to visit each tool's website individually.
 
