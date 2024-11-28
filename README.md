@@ -44,7 +44,8 @@ git clone https://github.com/R4z1xx/malwatcher.git
 cd malwatcher
 ```
 3. Edit Malwatcher web interface port if necessary in the docker-compose file.
-4. Start Malwatcher docker stack
+4. Edit Malwatcher config file with your API keys and settings.
+5. Start Malwatcher docker stack
 ```bash
 docker compose up -d
 ``` 
