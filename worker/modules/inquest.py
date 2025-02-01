@@ -59,7 +59,7 @@ class InQuest:
                     'first_seen': dfi_response['data'][0]['first_seen'],
                     'descriptions': descriptions,
                     'mime_type': dfi_response['data'][0]['mime_type'],
-                    'inquest_url': urljoin(self.report_dfi_url, str(PurePosixPath('sha256', dfi_response['data'][0]['sha256'])))
+                    'inquest_link': urljoin(self.report_dfi_url, str(PurePosixPath('sha256', dfi_response['data'][0]['sha256'])))
                 }
         return {'status': False}
     
@@ -89,7 +89,7 @@ class InQuest:
                     'first_seen': dfi_response['data'][0]['first_seen'],
                     'descriptions': descriptions,
                     'mime_type': dfi_response['data'][0]['mime_type'],
-                    'inquest_url': urljoin(self.report_dfi_url, str(PurePosixPath('sha256', dfi_response['data'][0]['sha256'])))
+                    'inquest_link': urljoin(self.report_dfi_url, str(PurePosixPath('sha256', dfi_response['data'][0]['sha256'])))
                 }
         return {'status': False}
     
@@ -114,7 +114,7 @@ class InQuest:
                     'first_seen': iocdb_response['data'][0]['created_date'],
                     'last_seen': iocdb_response['data'][-1]['created_date'],
                     'description': iocdb_response['data'][0]['reference_text'],
-                    'iocdb_url': urljoin(self.report_iocdb_url, ioc)
+                    'iocdb_link': urljoin(self.report_iocdb_url, ioc)
                 }
         return {'status': False}
     
@@ -139,6 +139,6 @@ class InQuest:
                     'first_seen': repdb_response['data'][0]['created_date'],
                     'last_seen': repdb_response['data'][-1]['created_date'],
                     'reputation_source': repdb_response['data'][0]['source'],
-                    'repdb_url': urljoin(self.report_repdb_url, ioc)
+                    'repdb_link': urljoin(self.report_repdb_url, ioc)
                 }
         return {'status': False}
