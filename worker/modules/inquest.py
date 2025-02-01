@@ -76,6 +76,8 @@ class InQuest:
             - InQuest DFI link
         """
         if ioc:
+            if type in ['ipv4', 'ipv6']:
+                type = 'ip'
             dfi_response = self._make_request(urljoin(self.api_dfi_ioc_url, type), params={"keyword": ioc})
             descriptions = []
             if dfi_response and dfi_response.get('data'):

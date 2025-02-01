@@ -35,6 +35,8 @@ class Triage:
             - Triage link
         """
         if self.api_key and ioc:
+            if type in ['ipv4', 'ipv6']:
+                type = 'ip'
             triage_response = self._make_request(f"?query={type}:{ioc}")
             if triage_response and triage_response.get('data', None):
                 return {

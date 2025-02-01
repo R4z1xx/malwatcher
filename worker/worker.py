@@ -154,7 +154,6 @@ class Worker:
                         ["polyswarm", self.polyswarm.search_hash, ioc, type],
                         ["inquest-iocdb", self.inquest.check_iocdb, ioc],
                         ["inquest-repdb", self.inquest.check_repdb, ioc],
-                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                         ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case "sha1":
@@ -167,7 +166,6 @@ class Worker:
                         ["polyswarm", self.polyswarm.search_hash, ioc, type],
                         ["inquest-iocdb", self.inquest.check_iocdb, ioc],
                         ["inquest-repdb", self.inquest.check_repdb, ioc],
-                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                         ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case "sha256":
@@ -182,7 +180,6 @@ class Worker:
                         ["polyswarm", self.polyswarm.search_hash, ioc, type],
                         ["inquest-iocdb", self.inquest.check_iocdb, ioc],
                         ["inquest-repdb", self.inquest.check_repdb, ioc],
-                        ["inquest-dfi-ioc", self.inquest.check_dfi_ioc, ioc, type],
                         ["inquest-dfi-hash", self.inquest.check_dfi_hash, ioc, type],
                     ]
                 case _:
