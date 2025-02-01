@@ -2,10 +2,13 @@ name: malwatcher
 services:
   worker:
     container_name: malwatcher-worker
+    build:
+      context: ./worker/
+      dockerfile: Dockerfile
+    # Change `always` to `build` to build from local source
+    pull_policy: always 
     image: ghcr.io/r4z1xx/malwatcher-api:latest
-    # build:
-    #   context: ./worker/
-    #   dockerfile: Dockerfile
+    
     volumes:
       - ./worker/logs:/worker/logs
       - ./config:/worker/config
@@ -14,9 +17,11 @@ services:
   frontend:
     container_name: malwatcher-frontend
     image: ghcr.io/r4z1xx/malwatcher-front:latest
-    # build:
-    #   context: ./frontend/
-    #   dockerfile: Dockerfile
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    # Change `always` to `build` to build from local source
+    pull_policy: always 
     ports:
       - 5000:5000
     volumes:
