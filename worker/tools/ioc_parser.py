@@ -4,10 +4,10 @@ import re
 class IOCParser:
     def __init__(self):
         self.patterns = [
-            {"find": r"(?:\d{1,3}\.){3}\d{1,3}$", "type": "ipv4"},
+            {"find": r"^(?:\d{1,3}\.){3}\d{1,3}$", "type": "ipv4"},
             # {"find": r"(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}", "type": "ipv6"}, # Simple one
             {"find": r"^(([0-9a-fA-F]{1,4}:){1,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,6}:|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|([0-9a-fA-F]{1,4}:)(:[0-9a-fA-F]{1,4}){1,6}|:((:[0-9a-fA-F]{1,4}){1,7}|:))$", "type": "ipv6"}, # Any IPv6 format
-            {"find": r"(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}", "type": "domain"},
+            {"find": r"^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$", "type": "domain"},
             {"find": r"^[a-fA-F0-9]{64}$", "type": "sha256"},
             {"find": r"^[a-fA-F0-9]{40}$", "type": "sha1"},
             {"find": r"^[a-fA-F0-9]{32}$", "type": "md5"},
