@@ -18,17 +18,15 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)        |
 | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox)      |
 |                      |                      |                      | *Abuse.ch (MalwareBazaar)*|
-| InQuest IOCDB*       | InQuest IOCDB*       | InQuest IOCDB*       | InQuest IOCDB*            |
-| InQuest RepDB*       | InQuest RepDB*       | InQuest RepDB*       | InQuest RepDB*            |
-| InQuest DFI IOC*     | InQuest DFI IOC*     | InQuest DFI IOC*     | InQuest DFI IOC*          |
+| InQuest IOCDB        | InQuest IOCDB        | InQuest IOCDB        | InQuest IOCDB             |
+| InQuest RepDB        | InQuest RepDB        | InQuest RepDB        | InQuest RepDB             |
+| InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC           |
 |                      |                      |                      | *InQuest DFI Hash*        |
-| Tria.ge*             | Tria.ge*             |                      | Tria.ge*                  |
-|                      |                      | PolySwarm*           | PolySwarm*                |
+| Tria.ge              | Tria.ge              |                      | Tria.ge                   |
+|                      |                      | PolySwarm            | PolySwarm                 |
 | *AbuseIPDB*          |                      |                      |                           |
 | *BinaryDefense*      |                      |                      |                           |
 | *IPSum*              |                      |                      |                           |
-
-*\*new API sources*
 
 # Installation
 ### Prerequisites
@@ -49,7 +47,7 @@ sudo chown 1001:1001 ./worker/logs
 sudo chmod 700 ./worker/logs
 ```
 3. Edit Malwatcher web interface port if necessary in the docker-compose file.
-4. Edit Malwatcher config file with your API keys and settings.
+4. Edit modules config files with your API keys. Edit global settings in the config file.
 5. Start Malwatcher docker stack
 ```bash
 docker compose up -d
