@@ -1,43 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-    <title>MalWatcher - Settings</title>
-    <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
-</head>
-<body class="w-screen h-screen bg-gray-100 dark:bg-woodsmoke-950">
-    <nav class="navbar bg-white dark:bg-woodsmoke-900 pr-8">
-        <div id="logo_nav_dark" class="flex-1">
-            <a class="appearance-none" href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/logo_txt.png') }}" alt="MalWatcher" class="w-[20rem]"/></a>
-        </div>
-        <div id="logo_nav_white" class="flex-1 hidden">
-            <a class="appearance-none" href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="MalWatcher" class="w-[20rem]"/></a>
-        </div>
-        <div class="flex-none gap-4">
-            <div class="w-10 rounded-full">
-                <label class="swap swap-rotate btn btn-square btn-ghost">
-                <input id="theme-toggle" type="checkbox">
-                <svg id="toggle-moon" class="swap-off fill-woodsmoke-950 dark:fill-gray-100 w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
-                <svg id="toggle-sun" class="swap-on fill-woodsmoke-950 dark:fill-gray-100 w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
-            </label>
-            </div>
-            <div class="w-10 rounded-full">
-                <a href="{{ url_for('main.settings') }}" class="btn btn-square btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 fill-woodsmoke-950 dark:fill-gray-100"><path fill-rule="evenodd" d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path><path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path></svg>
-                </a>
-            </div>
-        </div>
-    </nav>
-    <div class="w-full h-[calc(100vh-4.5rem)] flex items-center justify-center">
+
+    {% set title = 'Settings' %}
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="w-full h-[calc(100vh-4rem)] flex items-center justify-center">
         <form action="{{ url_for('main.update_settings') }}" method="post" class="min-w-[75%] flex flex-col items-center justify-center shadow-none rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-6 w-full flex flex-col justify-start">
                 <h1 class="font-bold text-[1.5rem] text-woodsmoke-950 dark:text-gray-100 mb-2">VirusTotal API</h1>
@@ -81,56 +47,6 @@
                     Update Settings
                 </button>
             </div>
+        </form>
     </div>
-    <script>
-        var themeToggleMoon = document.getElementById("toggle-moon");
-        var themeToggleSun = document.getElementById("toggle-sun");
-        var logoNavDark = document.getElementById("logo_nav_dark");
-        var logoNavWhite = document.getElementById("logo_nav_white");
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            themeToggleMoon.classList.remove("swap-off");
-            themeToggleMoon.classList.add("swap-on");
-            themeToggleSun.classList.add("swap-off");
-            themeToggleSun.classList.remove("swap-on");
-            logoNavDark.classList.add("hidden");
-            logoNavWhite.classList.remove("hidden");
-        } else {
-            themeToggleSun.classList.remove("swap-off");
-            themeToggleSun.classList.add("swap-on");
-            themeToggleMoon.classList.add("swap-off");
-            themeToggleMoon.classList.remove("swap-on");
-            logoNavDark.classList.remove("hidden");
-            logoNavWhite.classList.add("hidden");
-        }
-
-        var themeToggleBtn = document.getElementById("theme-toggle");
-        themeToggleBtn.addEventListener("click", function () {
-            if (localStorage.getItem("color-theme")) {
-                if (localStorage.getItem("color-theme") === "light") {
-                    document.documentElement.classList.add("dark");
-                    localStorage.setItem("color-theme", "dark");
-                    logoNavDark.classList.add("hidden");
-                    logoNavWhite.classList.remove("hidden");
-                } else {
-                    document.documentElement.classList.remove("dark");
-                    localStorage.setItem("color-theme", "light");
-                    logoNavDark.classList.remove("hidden");
-                    logoNavWhite.classList.add("hidden");
-                }
-            } else {
-                if (document.documentElement.classList.contains("dark")) {
-                    document.documentElement.classList.remove("dark");
-                    localStorage.setItem("color-theme", "light");
-                    logoNavDark.classList.remove("hidden");
-                    logoNavWhite.classList.add("hidden");
-                } else {
-                    document.documentElement.classList.add("dark");
-                    localStorage.setItem("color-theme", "dark");
-                    logoNavDark.classList.add("hidden");
-                    logoNavWhite.classList.remove("hidden");
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+    {% endblock %}

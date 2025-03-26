@@ -1,0 +1,14 @@
+logging:
+  app:
+    level: DEBUG
+    file: /app/logs/malwatcher.log
+  worker:
+    level: DEBUG
+    file: /worker/logs/malwatcher.log
+
+settings:
+  display: false
+
+worker:
+  # Define the timeout for worker's modules
+  timeout: 30

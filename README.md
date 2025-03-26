@@ -43,6 +43,11 @@ git clone https://github.com/R4z1xx/malwatcher.git
 ```bash
 cd malwatcher
 ```
+3. Edit logs folder permissions.
+```bash
+sudo chown 1001:1001 ./worker/logs
+sudo chmod 700 ./worker/logs
+```
 3. Edit Malwatcher web interface port if necessary in the docker-compose file.
 4. Edit Malwatcher config file with your API keys and settings.
 5. Start Malwatcher docker stack

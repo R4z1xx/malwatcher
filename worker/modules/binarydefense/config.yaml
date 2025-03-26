@@ -1,0 +1,4 @@
+enabled: true
+supported_iocs:
+  - ipv4
+  - ipv6

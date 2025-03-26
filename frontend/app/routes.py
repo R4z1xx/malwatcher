@@ -1,54 +1,39 @@
-from flask import Blueprint, render_template, request, jsonify
-from tomlkit import load, dumps
-from urllib.parse import urljoin
+from flask import Blueprint, render_template, request, jsonify, redirect
+from yaml import safe_load
+from urllib.parse import urljoin, unquote, quote
 import requests
 
-
 main_blueprint = Blueprint('main', __name__)
+
+def _load_config():
+    with open('/app/config/global.yaml', 'r') as fp:
+        config = safe_load(fp)
+    return config
 
 @main_blueprint.route('/')
 def index():
     return render_template('index.html')
 
+@main_blueprint.route('/report/<path:ioc>', methods=['GET'])
+def check_ioc(ioc):
+    try:
+        decoded_ioc = unquote(ioc)
+        response = requests.post('http://worker:8080/check', json={"ioc": decoded_ioc})
+        response.raise_for_status()
+        results = response.json()
+    except requests.exceptions.RequestException as e:
+        return render_template("report.html", results={"error": "Worker service unavailable"})
+    return render_template('report.html', results=results)
+
+
 @main_blueprint.route('/report', methods=['POST'])
-def check_ioc():
+def handle_check():
     ioc = request.form.get('ioc')
     ioc = ioc.strip()
     if not ioc:
         return jsonify({"error": "No IOC provided"}), 400
-    
-    with open('/app/config/config.toml', 'r') as fp:
-        config = load(fp)
-    worker_url = urljoin(f"{config['worker']['worker-protocol']}://{config['worker']['worker-name']}:{config['worker']['worker-port']}/", 'check')
-    response = requests.post(worker_url, json={"ioc": ioc})
-    results = response.json()
-    
-    return render_template('report.html', results=results)
+    return redirect("/report/{}".format(quote(ioc, safe='')))
 
 @main_blueprint.route('/settings')
 def settings():
-    with open('/app/config/config.toml', 'r') as fp:
-        config = load(fp)
-    if config["settings"]["display"] == False:
-        return render_template('index.html')
-    return render_template('settings.html', config=config)
-
-@main_blueprint.route('/update_settings', methods=['POST'])
-def update_settings():
-    vt_key = request.form.get('vt-key')
-    vt_enter = True if request.form.get('vt-enterprise') else False
-    otx_key = request.form.get('otx-key')
-    abuse_key = request.form.get('abuseipdb-key')
-    log_level = request.form.get('log-level')
-
-    with open('/app/config/config.toml', 'r') as fp:
-        config = load(fp)
-    config["modules"]['virustotal-api']['vt-key'] = vt_key
-    config["modules"]['virustotal-api']['vt-enterprise'] = vt_enter
-    config["modules"]['otx-api']['otx-key'] = otx_key
-    config["modules"]['abuseipdb-api']['abuseipdb-key'] = abuse_key
-    config['logging']['log-level'] = log_level
-    config = dumps(config)
-    with open('/app/config/config.toml', 'w') as f:
-        f.write(config)
-    return settings()
+    return render_template('index.html')

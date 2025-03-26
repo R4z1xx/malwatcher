@@ -2,34 +2,51 @@ name: malwatcher
 services:
   worker:
     container_name: malwatcher-worker
+    # Change `build` to `always` to use the Github Registry image
+    pull_policy: build
+    image: ghcr.io/r4z1xx/malwatcher-api:2.0.0
     build:
       context: ./worker/
       dockerfile: Dockerfile
-    # Change `always` to `build` to build from local source
-    pull_policy: always 
-    image: ghcr.io/r4z1xx/malwatcher-api:latest
-    
     volumes:
-      - ./worker/logs:/worker/logs
-      - ./config:/worker/config
+      - ./worker/logs:/worker/logs 
+      - ./config:/worker/config:ro
     networks:
       - malwatcher-network
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    read_only: true
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
   frontend:
     container_name: malwatcher-frontend
-    image: ghcr.io/r4z1xx/malwatcher-front:latest
+    # Change `build` to `always` to use the Github Registry image
+    pull_policy: build
+    image: ghcr.io/r4z1xx/malwatcher-front:2.0.0
     build:
       context: ./frontend/
       dockerfile: Dockerfile
-    # Change `always` to `build` to build from local source
-    pull_policy: always 
     ports:
-      - 5000:5000
+      - "5000:5000"
     volumes:
-      - ./config:/app/config
+      - ./config:/app/config:ro
     networks:
       - malwatcher-network
-    depends_on:
-      - worker
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,uid=1001,gid=1001
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
 
 networks:
   malwatcher-network:
+    driver: bridge

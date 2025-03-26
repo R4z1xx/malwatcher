@@ -1,10 +1,14 @@
-# docker build -t im-malwatcher-worker .
-# docker run -d -v ./logs:/worker/logs -p 4000:8080 --name malwatcher-worker im-malwatcher-worker
-
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 WORKDIR /worker
-COPY ./ /worker/
+
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN useradd -m -u 1001 worker && \
+    chown -R worker:worker /worker
+USER worker
 
 CMD ["python", "worker.py"]

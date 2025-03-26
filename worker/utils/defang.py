@@ -11,7 +11,7 @@ class Defanger:
         ]
         self.defang_patterns = [{"find": re.compile(i["find"], re.VERBOSE), "replace": i["replace"]} for i in self.patterns]
 
-    def defang(self, ioc):
+    def defang(self, ioc: str) -> str:
         """Defang url, domain, ip, email.
         :param ioc: IOC to defang
         """

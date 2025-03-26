@@ -1,5 +1,5 @@
-import hashlib
-import re
+from typing import Optional
+import hashlib, re
 
 class IOCParser:
     def __init__(self):
@@ -15,8 +15,9 @@ class IOCParser:
         ]
         self.ioc_patterns = [{"find": re.compile(i["find"], re.VERBOSE), "type": i["type"]} for i in self.patterns]
 
-    def parse(self, ioc):
-        """Parse IOC and return its type.
+    def parse(self, ioc: str) -> Optional[str]:
+        '''Parse IOC and return its type
+
         :param ioc: IOC to parse
         
         Returned type can be :
@@ -27,7 +28,7 @@ class IOCParser:
             - sha256
             - sha1
             - md5
-        """
+        '''
         ioc_type = None
         for pattern in self.ioc_patterns:
             if pattern["find"].match(ioc):
@@ -35,8 +36,11 @@ class IOCParser:
                 break
         return ioc_type
     
-    def url_hash(self, url):
-        """Calculate sha256 hash of URL.
+    def url_hash(self, url: str) -> str:
+        '''Calculate sha256 hash of URL
+
         :param url: URL to hash
-        """
+
+        :return: sha256 of URL
+        '''
         return hashlib.sha256(url.encode()).hexdigest()
