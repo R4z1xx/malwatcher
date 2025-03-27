@@ -30,8 +30,8 @@ jobs:
       - name: 'Build malwatcher-front image'
         run: |
           username=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build . --tag ghcr.io/$username/malwatcher-front:1.1.0
-          docker push ghcr.io/$username/malwatcher-front:1.1.0
+          docker build . --tag ghcr.io/$username/malwatcher-front:2.0.0
+          docker push ghcr.io/$username/malwatcher-front:2.0.0
 
   push-worker-image:
     runs-on: ubuntu-latest
@@ -55,5 +55,5 @@ jobs:
       - name: 'Build malwatcher-api image'
         run: |
           username=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build . --tag ghcr.io/$username/malwatcher-api:1.1.0
-          docker push ghcr.io/$username/malwatcher-api:1.1.0
+          docker build . --tag ghcr.io/$username/malwatcher-api:2.0.0
+          docker push ghcr.io/$username/malwatcher-api:2.0.0
