@@ -1,11 +1,14 @@
 name: Deploy Malwatcher images to ghcr.io
 
-on: workflow_dispatch
-# on:
+on:
 #   push:
 #     branches:
 #       - main
-#   workflow_dispatch:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '2.0.0'
+        required: true
 
 jobs:
   push-front-image:
@@ -30,7 +33,12 @@ jobs:
       - name: 'Build malwatcher-front image'
         run: |
           username=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build . --tag ghcr.io/$username/malwatcher-front:latest
+          # Build with both version and latest tags
+          docker build . \
+            --tag ghcr.io/$username/malwatcher-front:${{ github.event.inputs.version }} \
+            --tag ghcr.io/$username/malwatcher-front:latest
+          # Push both tags
+          docker push ghcr.io/$username/malwatcher-front:${{ github.event.inputs.version }}
           docker push ghcr.io/$username/malwatcher-front:latest
 
   push-worker-image:
@@ -55,5 +63,10 @@ jobs:
       - name: 'Build malwatcher-api image'
         run: |
           username=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build . --tag ghcr.io/$username/malwatcher-api:latest
+          # Build with both version and latest tags
+          docker build . \
+            --tag ghcr.io/$username/malwatcher-api:${{ github.event.inputs.version }} \
+            --tag ghcr.io/$username/malwatcher-api:latest
+          # Push both tags
+          docker push ghcr.io/$username/malwatcher-api:${{ github.event.inputs.version }}
           docker push ghcr.io/$username/malwatcher-api:latest
