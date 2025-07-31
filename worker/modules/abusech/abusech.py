@@ -17,7 +17,7 @@ class Bazaar(BasePlugin):
         '''Make request to Bazaar API
         '''
         async with aiohttp.ClientSession() as session:
-            headers = {"accept": "application/json"}
+            headers = {"accept": "application/json", "Auth-Key": self.api_key}
             try:
                 async with session.post(
                     self.api_base_url,
@@ -67,7 +67,7 @@ class ThreatFox(BasePlugin):
         '''Make request to ThreatFox API
         '''
         async with aiohttp.ClientSession() as session:
-            headers = {"accept": "application/json"}
+            headers = {"accept": "application/json", "auth-key": self.api_key}
             try:
                 async with session.post(
                     self.api_base_url,
@@ -120,7 +120,7 @@ class Urlhaus(BasePlugin):
         '''Make request to URLhaus API
         '''
         async with aiohttp.ClientSession() as session:
-            headers = {"accept": "application/json"}
+            headers = {"accept": "application/json", "auth-key": self.api_key}
             try:
                 async with session.post(
                     urljoin(self.api_base_url, endpoint),

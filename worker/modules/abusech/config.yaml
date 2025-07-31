@@ -1,3 +1,4 @@
+api_key: "APIKEY"
 enabled: true
 supported_iocs:
   - domain
