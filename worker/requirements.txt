@@ -1,4 +1,4 @@
 apiosintDS==2.0.3
-aiohttp==3.11.14
+aiohttp==3.12.14
 OTXv2==1.5.12
 PyYAML==6.0.2
