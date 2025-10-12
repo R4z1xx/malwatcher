@@ -1,0 +1,5 @@
+enabled: true
+supported_iocs:
+  - sha256
+  - url
+  - domain
