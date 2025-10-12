@@ -130,7 +130,7 @@ class Worker:
         '''Check IOC in defined modules using asyncio with per-module timeouts'''
         await self._limit_json_keys(request)
         ioc = await request.json()
-        ioc = ioc.get("ioc")
+        ioc = ioc.get("ioc").lower()
         results = {}
         
         if not ioc:

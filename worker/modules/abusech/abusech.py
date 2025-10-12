@@ -104,7 +104,7 @@ class ThreatFox(BasePlugin):
             'ioc_count': len(response.get('data', [])),
             'first_seen': response.get('data', [{}])[0].get('first_seen', 'N/A'),
             'last_seen': response.get('data', [{}])[0].get('last_seen', 'N/A') if response.get('data', [{}])[0].get('last_seen', 'N/A') else 'N/A',
-            'malware_alias': response.get('data', [{}])[0].get('malware_alias', 'N/A').split(",")[:5],
+            'malware_alias': response.get('data', [{}])[0].get('malware_alias', 'N/A').split(",")[:5] if response.get('data', [{}])[0].get('malware_alias', 'N/A') else response.get('data', [{}])[0].get('malware_printable', 'N/A'),
             'threat_description': response.get('data', [{}])[0].get('threat_type_desc', 'N/A'),
             'threatfox_link': urljoin(self.report_url, response.get('data', [{}])[0].get('id', 'N/A'))
         }
