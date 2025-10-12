@@ -27,6 +27,7 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | *AbuseIPDB*          |                      |                      |                           |
 | *BinaryDefense*      |                      |                      |                           |
 | *IPSum*              |                      |                      |                           |
+|                      | Anyrun               | Anyrun               | Anyrun (SHA256 only)      |
 
 # Installation
 ### Prerequisites
