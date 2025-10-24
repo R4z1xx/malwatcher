@@ -21,8 +21,11 @@ def check_ioc(ioc):
         response = requests.post('http://worker:8080/check', json={"ioc": decoded_ioc})
         response.raise_for_status()
         results = response.json()
-    except requests.exceptions.RequestException as e:
-        return render_template("report.html", results={"error": "Worker service unavailable"})
+    except requests.exceptions.RequestException:
+        if response is not None:
+            return render_template('report.html', results={"error": str(response.json().get("error", "An error occurred while processing the IOC"))})
+    except:
+        return render_template("report.html", results={"error": "An unexpected error occurred"})
     return render_template('report.html', results=results)
 
 
