@@ -29,9 +29,11 @@ def check_ioc(ioc):
 @main_blueprint.route('/report', methods=['POST'])
 def handle_check():
     ioc = request.form.get('ioc')
-    ioc = ioc.strip()
+    
     if not ioc:
         return jsonify({"error": "No IOC provided"}), 400
+    
+    ioc = ioc.strip()
     return redirect("/report/{}".format(quote(ioc, safe='')))
 
 @main_blueprint.route('/settings')

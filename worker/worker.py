@@ -129,21 +129,22 @@ class Worker:
     async def check_ioc(self, request: web.Request) -> web.Response:
         '''Check IOC in defined modules using asyncio with per-module timeouts'''
         await self._limit_json_keys(request)
-        ioc = await request.json()
-        ioc = ioc.get("ioc").lower()
-        results = {}
+        data = await request.json()
         
-        if not ioc:
-            self.logger.error("No IOC provided.")
-            results["error"] = "No IOC provided."
-            return web.json_response(results)
+        if not isinstance(data, dict):
+            return web.json_response({"error": "Invalid JSON structure"}, status=400)
+    
+        ioc = data.get("ioc")
+        if not ioc or not isinstance(ioc, str):
+            return web.json_response({"error": "IOC must be a non-empty string"}, status=400)
+
+        ioc = ioc.strip().lower()
 
         ioc_type = self._define_ioc_type(ioc)
         self.logger.debug(f"IOC type defined : {ioc_type}")
         if not ioc_type:
-            self.logger.error(f"IOC type not defined for {ioc}.")
-            results["error"] = 'IOC type not supported.'
-            return web.json_response(results)
+            self.logger.error(f"IOC type not defined for {ioc}")
+            return web.json_response({"error": "IOC type not supported"}, status=400)
             
         self.logger.info("Starting async checks for modules {}".format([module.__class__.__name__ for module in self.modules]))
         
@@ -182,7 +183,6 @@ class Worker:
 
         if timeout_modules:
             self.logger.warning(f"Modules {timeout_modules} timed out")
-            results["warning"] = "Partial results due to timeout"
 
         processed_results.sort(
             key=lambda x: not x[1].get('status', False)
