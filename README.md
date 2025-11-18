@@ -14,7 +14,6 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | -------------------- | -------------------- | -------------------- | ------------------------  |
 | VirusTotal           | VirusTotal           | VirusTotal           | VirusTotal                |
 | AlienVault           | AlienVault           | AlienVault           | AlienVault                |
-| DigitalSide          | DigitalSide          | DigitalSide          | DigitalSide               |
 | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)        |
 | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox)      |
 |                      |                      |                      | *Abuse.ch (MalwareBazaar)*|

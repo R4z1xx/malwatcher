@@ -1,8 +1,0 @@
-enabled: true
-supported_iocs:
-  - domain
-  - url
-  - sha256
-  - sha1
-  - md5
-  - ipv4
