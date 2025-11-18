@@ -1,5 +1,5 @@
 api_key: "APIKEY"
-enabled: true
+enabled: false
 supported_iocs:
   - ipv4
   - domain
