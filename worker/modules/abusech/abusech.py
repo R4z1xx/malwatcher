@@ -11,7 +11,8 @@ class Bazaar(BasePlugin):
         super().__init__(config_path)
         self.report_url = "https://bazaar.abuse.ch/sample/"
         self.api_base_url = 'https://mb-api.abuse.ch/api/v1/'
-        self.error_tag = ['hash_not_found', 'http_post_expected', 'illegal_hash', 'no_hash_provided']
+        self.error_tags= ['hash_not_found', 'http_post_expected', 'illegal_hash', 'no_hash_provided']
+        self.correct_tag = ['ok']
 
     async def _make_request(self, data: Dict) -> Dict:
         '''Make request to Bazaar API
@@ -38,11 +39,13 @@ class Bazaar(BasePlugin):
         :param type: md5, sha1, sha256
         '''
         if ioc_type not in ['md5', 'sha1', 'sha256']:
-            return {'status': False, 'error': f'Unsupported IOC type: {ioc_type}'}
+            return {'status': False, 'error': 'Unsupported IOC type: {}'.format(ioc_type)}
 
         response = await self._make_request({"query": "get_info", "hash": ioc_value})
-        if not response or response.get('query_status', None) in self.error_tag:
+        if not response or response.get('query_status', '') not in self.correct_tag and response.get('query_status', '') not in self.error_tags:
             return {'status': False}
+        elif not response or response.get('query_status', '') in self.error_tags:
+            return {'status': False, 'error': '{}'.format(response.get('query_status', 'unknown'))}
         
         return {
             'status': True, 
@@ -61,7 +64,8 @@ class ThreatFox(BasePlugin):
         super().__init__(config_path)
         self.report_url = "https://threatfox.abuse.ch/ioc/"
         self.api_base_url = 'https://threatfox-api.abuse.ch/api/v1/'
-        self.error_tag = ['no_result']
+        self.error_tags = ['illegal_search_term']
+        self.correct_tag = ['ok']
 
     async def _make_request(self, data: Dict) -> Dict:
         '''Make request to ThreatFox API
@@ -89,22 +93,24 @@ class ThreatFox(BasePlugin):
         '''
 
         if ioc_type not in self.supported_iocs:
-            return {'status': False, 'error': f'Unsupported IOC type: {ioc_type}'}
+            return {'status': False, 'error': 'Unsupported IOC type: {}'.format(ioc_type)}
 
         if ioc_type in ['md5', 'sha256']:
             response = await self._make_request({"query": "search_hash", "hash": ioc_value})
         else:
             response = await self._make_request({"query": "search_ioc", "search_term": ioc_value})
         
-        if not response or response.get('query_status', None) in self.error_tag:
+        if not response or response.get('query_status', '') not in self.correct_tag and response.get('query_status', '') not in self.error_tags:
             return {'status': False}
+        elif not response or response.get('query_status', '') in self.error_tags:
+            return {'status': False, 'error': '{}'.format(response.get('query_status', 'unknown'))}
 
         return {
             'status': True,
             'ioc_count': len(response.get('data', [])),
             'first_seen': response.get('data', [{}])[0].get('first_seen', 'N/A'),
             'last_seen': response.get('data', [{}])[0].get('last_seen', 'N/A') if response.get('data', [{}])[0].get('last_seen', 'N/A') else 'N/A',
-            'malware_alias': response.get('data', [{}])[0].get('malware_alias', 'N/A').split(",")[:5] if response.get('data', [{}])[0].get('malware_alias', 'N/A') else response.get('data', [{}])[0].get('malware_printable', 'N/A'),
+            'malware_alias': response.get('data', [{}])[0].get('malware_alias', 'N/A').split(",")[:5] if response.get('data', [{}])[0].get('malware_alias', 'N/A') else 'N/A',
             'threat_description': response.get('data', [{}])[0].get('threat_type_desc', 'N/A'),
             'threatfox_link': urljoin(self.report_url, response.get('data', [{}])[0].get('id', 'N/A'))
         }
@@ -114,7 +120,8 @@ class Urlhaus(BasePlugin):
         config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
         super().__init__(config_path)
         self.api_base_url = 'https://urlhaus-api.abuse.ch/v1/'
-        self.error_tag = ['no_results', 'http_post_expected', 'invalid_url', 'invalid_host', 'invalid_sha256', 'invalid_md5']
+        self.error_tags= ['http_post_expected', 'invalid_url', 'invalid_host', 'invalid_sha256', 'invalid_md5']
+        self.correct_tag = ['ok']
 
     async def _make_request(self, endpoint: str, data: Dict) -> Dict:
         '''Make request to URLhaus API
@@ -151,7 +158,7 @@ class Urlhaus(BasePlugin):
         }.get(ioc_type)
 
         if not handler:
-            return {'status': False, 'error': f'Unsupported IOC type: {ioc_type}'}
+            return {'status': False, 'error': 'Unsupported IOC type: {}'.format(ioc_type)}
         
         try:
             return await handler(ioc_type, ioc_value)
@@ -160,8 +167,10 @@ class Urlhaus(BasePlugin):
 
     async def _check_url(self, ioc_type: str, url: str) -> Dict:
         response = await self._make_request('url', {"url": url})
-        if not response or response.get('query_status', None) in self.error_tag:
+        if not response or response.get('query_status', '') not in self.correct_tag and response.get('query_status', '') not in self.error_tags:
             return {'status': False}
+        elif not response or response.get('query_status', '') in self.error_tags:
+            return {'status': False, 'error': '{}'.format(response.get('query_status', 'unknown'))}
 
         return {
             'status': True, 
@@ -176,8 +185,10 @@ class Urlhaus(BasePlugin):
     
     async def _check_domain_ip(self, ioc_type: str, ioc: str) -> Dict:
         response = await self._make_request('host', {"host": ioc})
-        if not response or response.get('query_status', None) in self.error_tag:
+        if not response or response.get('query_status', '') not in self.correct_tag and response.get('query_status', '') not in self.error_tags:
             return {'status': False}
+        elif not response or response.get('query_status', '') in self.error_tags:
+            return {'status': False, 'error': '{}'.format(response.get('query_status', 'unknown'))}
         
         return {
             'status': True, 
@@ -188,8 +199,10 @@ class Urlhaus(BasePlugin):
     
     async def _check_hash(self, ioc_type: str, hash: str) -> Dict:
         response = await self._make_request('payload', {'{}_hash'.format(ioc_type): hash})
-        if not response or response.get('query_status', None) in self.error_tag:
+        if not response or response.get('query_status', '') not in self.correct_tag and response.get('query_status', '') not in self.error_tags:
             return {'status': False}
+        elif not response or response.get('query_status', '') in self.error_tags:
+            return {'status': False, 'error': '{}'.format(response.get('query_status', 'unknown'))}
         
         return {
             'status': True, 
