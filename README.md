@@ -21,7 +21,7 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | InQuest RepDB        | InQuest RepDB        | InQuest RepDB        | InQuest RepDB             |
 | InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC           |
 |                      |                      |                      | *InQuest DFI Hash*        |
-| Tria.ge              | Tria.ge              |                      | Tria.ge                   |
+|                      | Tria.ge              |                      | Tria.ge                   |
 |                      |                      | PolySwarm            | PolySwarm                 |
 | *AbuseIPDB*          |                      |                      |                           |
 | *BinaryDefense*      |                      |                      |                           |

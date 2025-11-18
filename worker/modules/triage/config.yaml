@@ -1,7 +1,6 @@
 api_key: "APIKEY"
 enabled: false
 supported_iocs:
-  - ipv4
   - domain
   - sha256
   - sha1
