@@ -25,4 +25,4 @@ RUN useradd -m -u 1001 appuser && \
 
 USER appuser
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:5000 --worker-class gevent --workers $((2 * $(nproc) + 1)) --worker-connections 1000 main:app"]
