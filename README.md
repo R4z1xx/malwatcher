@@ -1,16 +1,23 @@
-
+<div align="center">
+  
 [![Malwatcher](/images/malwatcher_black.png)](https://github.com/R4z1xx/malwatcher)
+
+## Malwatcher: One interface for all your IOC checks.
 
 [![GitHub Release](https://img.shields.io/github/v/release/R4z1xx/malwatcher)](https://github.com/R4z1xx/malwatcher/releases/latest)
 [![Static Badge](https://img.shields.io/badge/Docker-ghcr.io-blue)](https://github.com/R4z1xx?tab=packages&repo_name=malwatcher)
 [![GitHub License](https://img.shields.io/github/license/R4z1xx/malwatcher)](https://github.com/R4z1xx/malwatcher/blob/main/LICENSE)
 [![Deploy Malwatcher images to ghcr.io](https://github.com/R4z1xx/malwatcher/actions/workflows/gchr_push_latest.yml/badge.svg)](https://github.com/R4z1xx/malwatcher/actions/workflows/gchr_push_latest.yml)
 
+![Malwatcher Demo](/images/malwatcher-demo.gif)
+
+</div>
+
 # What's this?
 Malwatcher is a self-hosted platform that simplifies the process of verifying IOCs by combining multiple online tools into one interface, eliminating the need to visit each tool's website individually.
 
 # Supported sources / APIs
-| IPs Feed             | Domain Feed          | URL Feed             | File Feed                 |
+| IPs                  | Domain               | URL                  | File                      |
 | -------------------- | -------------------- | -------------------- | ------------------------  |
 | VirusTotal           | VirusTotal           | VirusTotal           | VirusTotal                |
 | AlienVault           | AlienVault           | AlienVault           | AlienVault                |
@@ -51,13 +58,8 @@ sudo chmod 700 ./worker/logs
 5. Start Malwatcher docker stack
 ```bash
 docker compose up -d
-``` 
+```
 
-# Demo
-Here is a preview of the Malwatcher web interface.<br>
-/!\ The copy of defanged IOC on the report page only works if the web app is set to "https".
-
-![Malwatcher Demo](/images/malwatcher-demo.gif)
 
 # License
 Malwatcher is released under GNU GPL-3.0. See [LICENSE](LICENSE)
