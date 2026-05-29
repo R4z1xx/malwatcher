@@ -1,0 +1,6 @@
+api_key: "APIKEY"
+enabled: false
+supported_iocs:
+  - sha256
+  - sha1
+  - md5
