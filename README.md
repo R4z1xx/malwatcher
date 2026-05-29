@@ -17,23 +17,24 @@
 Malwatcher is a self-hosted platform that simplifies the process of verifying IOCs by combining multiple online tools into one interface, eliminating the need to visit each tool's website individually.
 
 # Supported sources / APIs
-| IPs                  | Domain               | URL                  | File                      |
-| -------------------- | -------------------- | -------------------- | ------------------------  |
-| VirusTotal           | VirusTotal           | VirusTotal           | VirusTotal                |
-| AlienVault           | AlienVault           | AlienVault           | AlienVault                |
-| Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)   | Abuse.ch (UrlHaus)        |
-| Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox) | Abuse.ch (ThreatFox)      |
-|                      |                      |                      | *Abuse.ch (MalwareBazaar)*|
-| InQuest IOCDB        | InQuest IOCDB        | InQuest IOCDB        | InQuest IOCDB             |
-| InQuest RepDB        | InQuest RepDB        | InQuest RepDB        | InQuest RepDB             |
-| InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC      | InQuest DFI IOC           |
-|                      |                      |                      | *InQuest DFI Hash*        |
-|                      | Tria.ge              |                      | Tria.ge                   |
-|                      |                      | PolySwarm            | PolySwarm                 |
-| *AbuseIPDB*          |                      |                      |                           |
-| *BinaryDefense*      |                      |                      |                           |
-| *IPSum*              |                      |                      |                           |
-|                      | Anyrun               | Anyrun               | Anyrun (SHA256 only)      |
+| IPs                        | Domain                     | URL                        | File                       |
+| --------------------       | --------------------       | --------------------       | ------------------------   |
+| VirusTotal (Key)           | VirusTotal (Key)           | VirusTotal (Key)           | VirusTotal (Key)           |
+| AlienVault                 | AlienVault                 | AlienVault                 | AlienVault                 |
+| Abuse.ch (UrlHaus) (Key)   | Abuse.ch (UrlHaus) (Key)   | Abuse.ch (UrlHaus) (Key)   | Abuse.ch (UrlHaus) (Key)   |
+| Abuse.ch (ThreatFox) (Key) | Abuse.ch (ThreatFox) (Key) | Abuse.ch (ThreatFox) (Key) | Abuse.ch (ThreatFox) (Key) |
+|                            |                            |                            | *Abuse.ch (MalwareBazaar)* |
+| InQuest IOCDB              | InQuest IOCDB              | InQuest IOCDB              | InQuest IOCDB              |
+| InQuest RepDB              | InQuest RepDB              | InQuest RepDB              | InQuest RepDB              |
+| InQuest DFI IOC            | InQuest DFI IOC            | InQuest DFI IOC            | InQuest DFI IOC            |
+|                            |                            |                            | *InQuest DFI Hash*         |
+|                            | Tria.ge (Key)              |                            | Tria.ge (Key)              |
+|                            |                            | PolySwarm (Key)            | PolySwarm (Key)            |
+| *AbuseIPDB* (Key)          |                            |                            |                            |
+| *BinaryDefense*            |                            |                            |                            |
+|                            | Anyrun                     | Anyrun                     | Anyrun (SHA256 only)       |
+|                            |                            |                            | Malshare (Key)             |
+| Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            |
 
 # Installation
 ### Prerequisites
