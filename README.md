@@ -34,7 +34,8 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 | *BinaryDefense*            |                            |                            |                            |
 |                            | Anyrun                     | Anyrun                     | Anyrun (SHA256 only)       |
 |                            |                            |                            | Malshare (Key)             |
-| Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            |
+| *Rosti.dev* (Key)          | *Rosti.dev* (Key)          | *Rosti.dev* (Key)          | *Rosti.dev* (Key)          |
+| Offensive Agency (AI agents)| Offensive Agency (AI agents)|                          |                            |
 
 # Installation
 ### Prerequisites

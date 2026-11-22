@@ -1,0 +1,4 @@
+enabled: true
+supported_iocs:
+  - domain
+  - ipv4
