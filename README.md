@@ -35,7 +35,6 @@ Malwatcher is a self-hosted platform that simplifies the process of verifying IO
 |                            | Anyrun                     | Anyrun                     | Anyrun (SHA256 only)       |
 |                            |                            |                            | Malshare (Key)             |
 | Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            | Rosti.dev (Key)            |
-|                            |                            |                            | ThreatRip / Neiki          |
 
 # Installation
 ### Prerequisites
